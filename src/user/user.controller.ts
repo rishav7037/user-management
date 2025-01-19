@@ -25,13 +25,11 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Roles('admin')
   @Get('getById/:id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
-  @Roles('admin')
   @Get('getByName/:name')
   findByName(@Param('name') name: string) {
     return this.userService.findByUsername(name);
@@ -52,7 +50,7 @@ export class UserController {
     return this.userService.updateRole(id, updateUserRolesDto);
   }
 
-  @Roles('admin')
+  @Roles('admin', 'editor')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
