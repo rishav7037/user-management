@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { DocumentService } from './document.service';
 
-import { Roles } from 'src/common/roles.decorator';
+import { Roles } from './../common/roles.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 

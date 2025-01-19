@@ -39,8 +39,8 @@ Ensure you have the following installed:
 2. Clone the repository:
 
    ```bash
-   git clone <repository-url>
-   cd <project-directory>
+   git clone https://github.com/rishav7037/user-management.git
+   cd user-management
    ```
 
 3. Install dependencies:
@@ -72,15 +72,60 @@ Ensure you have the following installed:
    npm run typeorm:migration:run
    ```
 
-## Running the Application
+## Development Environment
 
 1. Start the application in development mode:
 
-   ```bash
+ ```bash
    npm run start:dev
    ```
 
-2. Access the API at `http://localhost:<PORT>` (default: 3000).
+2. Access the API at http://localhost:<PORT> (default: 3000).
+
+## Production Environment
+
+1. Build the application:
+
+   ```bash
+   npm run build
+   ```
+
+2. Start the application in production mode:
+
+   ```bash
+   npm run start:prod
+   ```
+
+Ensure that the .env file contains production-specific configurations such as database credentials and JWT secrets.
+
+
+## Docker Deployment
+
+1. Build the Docker image:
+
+```bash
+docker build -t document-management-system .
+   ```
+
+2. Run the container:
+
+```bash
+docker run -d --name document-management-system \
+  -p 3000:3000 \
+  --env-file .env \
+  document-management-system
+   ```
+
+
+3. Verify the application is running:
+
+```bash
+docker ps
+   ```
+
+For scaling and orchestration, consider using Docker Compose or Kubernetes.
+
+
 
 ## API Endpoints
 
