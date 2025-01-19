@@ -7,7 +7,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { ConflictException, UnauthorizedException } from '@nestjs/common';
-import { Role } from 'src/common/role.enum';
+import { Role } from './../common/role.enum';
 
 const mockUserRepository = () => ({
   findOne: jest.fn(),

@@ -8,14 +8,14 @@ export class IngestionController {
   constructor(private readonly ingestionService: IngestionService) {}
 
   @Post('trigger')
-  @Roles('admin', 'editor')
+  @Roles('admin')
   triggerIngestion() {
     return this.ingestionService.triggerIngestion();
   }
 
   @Patch(':id')
   @Roles('admin', 'editor')
-  updateStatus(
+  async updateStatus(
     @Param('id') id: string,
     @Body() updateIngestionDto: UpdateIngestionDto,
   ) {
