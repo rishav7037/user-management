@@ -47,7 +47,7 @@ export class AuthService {
     await this.userRepository.save(user);
     return {
       code: 200,
-      message: 'user created successfully',
+      message: 'User created successfully',
     };
   }
 

@@ -88,7 +88,7 @@ describe('AuthService', () => {
       expect(userRepository.save).toHaveBeenCalled();
       expect(result).toEqual({
         code: 200,
-        message: 'user created successfully',
+        message: 'User created successfully',
       });
     });
   });
