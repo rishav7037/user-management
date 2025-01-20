@@ -39,8 +39,8 @@ Ensure you have the following installed:
 2. Clone the repository:
 
    ```bash
-   git clone <repository-url>
-   cd <project-directory>
+   git clone https://github.com/rishav7037/user-management.git
+   cd user-management
    ```
 
 3. Install dependencies:
