@@ -5,7 +5,7 @@ import { BlacklistedToken } from './../common/entity/blacklisted-token.entity';
 import { JwtService } from '@nestjs/jwt';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+import * as argon2 from 'argon2';
 import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { Role } from './../common/role.enum';
 
@@ -71,7 +71,7 @@ describe('AuthService', () => {
       userRepository.create.mockReturnValue({} as User);
       userRepository.save.mockResolvedValue({} as User);
 
-      jest.spyOn(bcrypt, 'hash').mockResolvedValue('hashedPassword');
+      jest.spyOn(argon2, 'hash').mockResolvedValue('hashedPassword');
 
       const result = await service.register({
         username: 'testuser',
@@ -79,7 +79,7 @@ describe('AuthService', () => {
         role: 'admin',
       });
 
-      expect(bcrypt.hash).toHaveBeenCalledWith('password123', 10);
+      expect(argon2.hash).toHaveBeenCalledWith('password123');
       expect(userRepository.create).toHaveBeenCalledWith({
         username: 'testuser',
         password: 'hashedPassword',
@@ -107,7 +107,7 @@ describe('AuthService', () => {
         username: 'testuser',
         password: 'hashedPassword',
       } as User);
-      jest.spyOn(bcrypt, 'compare').mockResolvedValue(false);
+      jest.spyOn(argon2, 'verify').mockResolvedValue(false);
 
       await expect(
         service.login({ username: 'testuser', password: 'password123' }),
@@ -120,7 +120,7 @@ describe('AuthService', () => {
         password: 'hashedPassword',
         role: 'admin' as Role,
       } as User);
-      jest.spyOn(bcrypt, 'compare').mockResolvedValue(true);
+      jest.spyOn(argon2, 'verify').mockResolvedValue(true);
       jwtService.sign.mockReturnValue('accessToken');
 
       const result = await service.login({

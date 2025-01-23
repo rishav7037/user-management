@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 
-import * as bcrypt from 'bcrypt';
+import * as argon2 from 'argon2';
 import { User } from './../common/entity/user.entity';
 import { RegisterDto } from './../common/dto/user/register.dto';
 import { LoginDto } from './../common/dto/user/login.dto';
@@ -37,7 +37,7 @@ export class AuthService {
     });
     if (existingUser) throw new ConflictException('Username already taken');
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await argon2.hash(password);
 
     const user = this.userRepository.create({
       username,
@@ -65,7 +65,7 @@ export class AuthService {
     });
     if (!user) throw new UnauthorizedException('Invalid credentials');
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await argon2.verify(user.password, password);
     if (!isPasswordValid)
       throw new UnauthorizedException('Invalid credentials');
 
